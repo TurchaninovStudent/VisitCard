@@ -159,7 +159,7 @@ fun VisitCardInfo(
         Spacer(modifier)
         PersonInfo(
             fullName = stringResource(R.string.full_name_text),
-            title = "создал это приложение"
+            title = stringResource(R.string.title_text)
         )
         SocialInfoGroup(
             phoneNumber = "+7 (921) 260-65-51",

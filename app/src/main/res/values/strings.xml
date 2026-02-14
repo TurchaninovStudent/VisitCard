@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Visit Card</string>
     <string name="full_name_text">Турчанинов Андрей Евгеньевич</string>
+    <string name="title_text">создал это приложение</string>
 </resources>
