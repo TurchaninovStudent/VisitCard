@@ -162,7 +162,7 @@ fun VisitCardInfo(
             title = stringResource(R.string.title_text)
         )
         SocialInfoGroup(
-            phoneNumber = "+7 (921) 260-65-51",
+            phoneNumber = stringResource(R.string.phone_number_text),
             socialMedia = "@CasCade",
             email = "aeturchaninov@ya.ru"
         )
