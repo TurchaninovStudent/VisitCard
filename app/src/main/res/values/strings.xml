@@ -3,4 +3,7 @@
     <string name="full_name_text">Турчанинов Андрей Евгеньевич</string>
     <string name="title_text">создал это приложение</string>
     <string name="phone_number_text">+7 (921) 260-65-51</string>
+    <string name="email_text">aeturchaninov@ya.ru</string>
+    <string name="social_media_text">\@CasCade</string>
+    <string name="title_activity_person_info">PersonInfo</string>
 </resources>

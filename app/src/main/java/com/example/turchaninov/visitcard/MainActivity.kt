@@ -10,18 +10,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,11 +39,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     VisitCardInfo(
-                        fullName = "Турчанинов Андрей Евгеньевич",
-                        title = "создал это приложение",
-                        phoneNumber = "+7 (921) 260-65-51",
-                        socialMedia = "@CasCade",
-                        email = "aeturchaninov@ya.ru"
+                        fullName = stringResource(R.string.full_name_text),
+                        title = stringResource(R.string.title_text),
+                        phoneNumber = stringResource(R.string.phone_number_text),
+                        socialMedia = stringResource(R.string.social_media_text),
+                        email = stringResource(R.string.email_text)
                     )
                 }
             }
@@ -66,48 +67,89 @@ fun PersonInfo(
         Image(
             painter = image,
             contentDescription = null,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            modifier = modifier
         )
         Text(
             text = fullName,
-            fontSize = 24.sp,
+            fontSize = 28.sp,
             lineHeight = 32.sp,
+            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
+            color = Color(0xFd3F13c4),
             modifier = modifier
                 .padding(8.dp)
         )
         Text(
             text = title,
-            fontSize = 12.sp,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            modifier = Modifier
+            modifier = modifier
         )
     }
 }
 
 @Composable
-fun SocialInfo(
-    text: String,
+fun SocialInfoIcon(
     painter: Painter,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        horizontalArrangement = Arrangement.Center,
+    Image(
+        painter = painter,
+        contentDescription = null,
+        contentScale = ContentScale.FillWidth,
         modifier = modifier
-            .height(32.dp)
+            .padding(8.dp)
+    )
+}
+
+@Composable
+fun SocialInfoIcons(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .width(54.dp)
+            .padding(8.dp)
     ) {
-        Image(
-            painter = painter,
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight
-        )
-        Text(
-            text = text,
-            fontSize = 16.sp,
-            lineHeight = 32.sp,
-            textAlign = TextAlign.Left,
-            modifier = Modifier
-        )
+        SocialInfoIcon(painter = painterResource(R.drawable.phoneicon), modifier)
+        SocialInfoIcon(painter = painterResource(R.drawable.telegramicon), modifier)
+        SocialInfoIcon(painter = painterResource(R.drawable.emailicon), modifier)
+    }
+}
+
+@Composable
+fun SocialInfoValue(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        fontSize = 16.sp,
+        lineHeight = 32.sp,
+        textAlign = TextAlign.Left,
+        modifier = Modifier
+            .padding(8.dp)
+    )
+}
+
+@Composable
+fun SocialInfoValues(
+    phoneNumber: String,
+    socialMedia: String,
+    email: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.Start,
+        modifier = modifier
+            .padding(8.dp)
+    ) {
+        SocialInfoValue(phoneNumber, modifier)
+        SocialInfoValue(socialMedia, modifier)
+        SocialInfoValue(email, modifier)
     }
 }
 
@@ -118,25 +160,17 @@ fun SocialInfoGroup(
     email: String,
     modifier: Modifier = Modifier
 ) {
-    val phoneImage = painterResource(R.drawable.phoneicon)
-    val telegramImage = painterResource(R.drawable.telegramicon)
-    val emailImage = painterResource(R.drawable.emailicon)
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceAround
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier
     ) {
-        SocialInfo(
-            text = phoneNumber,
-            painter = phoneImage
-        )
-        SocialInfo(
-            text = socialMedia,
-            painter = telegramImage
-        )
-        SocialInfo(
-            text = email,
-            painter = emailImage
+        Spacer(modifier)
+        SocialInfoIcons(modifier)
+        SocialInfoValues(
+            phoneNumber = phoneNumber,
+            socialMedia = socialMedia,
+            email = email,
+            modifier
         )
     }
 }
@@ -152,19 +186,21 @@ fun VisitCardInfo(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
             .fillMaxSize()
     ) {
         Spacer(modifier)
         PersonInfo(
-            fullName = stringResource(R.string.full_name_text),
-            title = stringResource(R.string.title_text)
+            fullName = fullName,
+            title = title
         )
         SocialInfoGroup(
-            phoneNumber = stringResource(R.string.phone_number_text),
-            socialMedia = "@CasCade",
-            email = "aeturchaninov@ya.ru"
+            phoneNumber = phoneNumber,
+            socialMedia = socialMedia,
+            email = email,
+            modifier = modifier
+                .padding(bottom = 16.dp)
         )
     }
 }
@@ -174,11 +210,11 @@ fun VisitCardInfo(
 fun VisitCardPreview() {
     VisitCardTheme {
         VisitCardInfo(
-            fullName = "Турчанинов Андрей Евгеньевич",
-            title = "создал это приложение",
-            phoneNumber = "+7 (921) 260-65-51",
-            socialMedia = "@CasCade",
-            email = "aeturchaninov@ya.ru"
+            fullName = stringResource(R.string.full_name_text),
+            title = stringResource(R.string.title_text),
+            phoneNumber = stringResource(R.string.phone_number_text),
+            socialMedia = stringResource(R.string.social_media_text),
+            email = stringResource(R.string.email_text)
         )
     }
 }
